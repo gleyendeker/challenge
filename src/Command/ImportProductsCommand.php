@@ -5,23 +5,14 @@ namespace App\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Serializer\Encoder\JsonDecode;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class ImportProductsCommand extends Command
 {
     protected static $defaultName = 'import-products';
-    private $serializer;
-
-    public function __construct(SerializerInterface $serializer)
-    {
-        parent::__construct();
-
-        $this->serializer = $serializer;
-
-    }
 
     protected function configure()
     {
@@ -34,12 +25,15 @@ class ImportProductsCommand extends Command
         $filename = '/home/usuario/proyectos/challenge/products.json';
         $data = file_get_contents($filename);
 
-        $rows = $this->serializer->deserialize($data,'json');
+        // info about normalizers and encoders: https://symfony.com/doc/current/components/serializer.html
+        $normalizers = [new PropertyNormalizer(), new ArrayDenormalizer()];
+        $encoders = [new JsonEncoder()];
+
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $rows = $serializer->deserialize($data,'App\Entity\Product[]','json');
         
         dd($rows);
-
-//        $encoders = [new XmlEncoder(), new JsonEncoder()];
-//        $normalizers = [new ObjectNormalizer()];
 
         return 1;
 

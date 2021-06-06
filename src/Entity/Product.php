@@ -31,14 +31,15 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
-
-    /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="product", orphanRemoval=true)
      */
     private $images;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Price::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $price;
 
     public function __construct() {
         $this->images = new ArrayCollection();
@@ -73,18 +74,6 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Image[]
      */
@@ -111,6 +100,18 @@ class Product
                 $image->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrice(): ?Price
+    {
+        return $this->price;
+    }
+
+    public function setPrice(Price $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
