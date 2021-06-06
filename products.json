@@ -1,0 +1,28 @@
+[
+  {
+    "styleNumber": "DEF|456",
+    "name": "T-Shirt",
+    "price": {
+      "amount": 1500,
+      "currency": "USD"
+    },
+    "images": [
+      "https://via.placeholder.com/400x300/4b0082?id=1",
+      "https://via.placeholder.com/400x300/4b0082?id=2"
+    ]
+  },
+  {
+    "styleNumber": "ABC|123",
+    "name": "T-Shirt",
+    "price": {
+      "amount": 2000,
+      "currency": "USD"
+    },
+    "images": [
+      "https://via.placeholder.com/400x300/4b0055?id=1",
+      "https://via.placeholder.com/400x300/4b0055?id=2",
+      "https://via.placeholder.com/400x300/4b0055?id=3"
+    ]
+  }
+
+]
