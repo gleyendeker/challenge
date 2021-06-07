@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\PriceRepository;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @ORM\Entity(repositoryClass=PriceRepository::class)
  */
@@ -54,6 +53,23 @@ class Price
         $this->amount = $amount;
 
         return $this;
+    }
+
+    public function updateWith (Price $updatedPrice) {
+
+        $dirty = false;
+
+        if ($this->currency != $updatedPrice->getCurrency()) { $this->currency = $updatedPrice->getCurrency(); $dirty = true; }
+        if ($this->amount != $updatedPrice->getAmount()) { $this->amount = $updatedPrice->getAmount(); $dirty = true; }
+
+        return $dirty;
+
+    }
+
+    public function __toString()
+    {
+        $pieces = [$this->currency, $this->amount];
+        return implode(",", $pieces);
     }
 
 }

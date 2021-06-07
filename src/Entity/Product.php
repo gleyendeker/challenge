@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Table(name="product",uniqueConstraints={ @ORM\UniqueConstraint(name="search_idx", columns={"style_number"})})
  */
 class Product
 {
@@ -40,6 +41,11 @@ class Product
      * @ORM\Column(type="simple_array")
      */
     private $images = [];
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $synchronized;
 
     public function getId(): ?int
     {
@@ -92,5 +98,35 @@ class Product
         $this->images = $images;
 
         return $this;
+    }
+
+    public function updateWith(Product $updatedProduct) {
+
+        $dirty = false;
+
+        if ($this->styleNumber != $updatedProduct->getStyleNumber()) { $this->styleNumber = $updatedProduct->getStyleNumber(); $dirty = true; }
+        if ($this->name != $updatedProduct->getName()) { $this->name = $updatedProduct->getName(); $dirty = true; }
+        if ($this->price != $updatedProduct->getPrice()) { $dirty = $this->price->updateWith($updatedProduct->getPrice()); }
+        if ($this->images != $updatedProduct->getImages()) { $this->images = $updatedProduct->getImages(); $dirty = true; }
+
+        return $dirty;
+    }
+
+    public function getSynchronized(): ?bool
+    {
+        return $this->synchronized;
+    }
+
+    public function setSynchronized(bool $synchronized): self
+    {
+        $this->synchronized = $synchronized;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        $pieces = [$this->styleNumber, $this->name, $this->price];
+        return implode(",", $pieces) . ',' . implode(',', $this->images);
     }
 }

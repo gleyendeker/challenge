@@ -3,7 +3,7 @@
     "styleNumber": "DEF|456",
     "name": "T-Shirt",
     "price": {
-      "amount": 1500,
+      "amount": 1502,
       "currency": "USD"
     },
     "images": [
@@ -15,13 +15,14 @@
     "styleNumber": "ABC|123",
     "name": "T-Shirt",
     "price": {
-      "amount": 2000,
+      "amount": 2001,
       "currency": "USD"
     },
     "images": [
       "https://via.placeholder.com/400x300/4b0055?id=1",
       "https://via.placeholder.com/400x300/4b0055?id=2",
-      "https://via.placeholder.com/400x300/4b0055?id=3"
+      "https://via.placeholder.com/400x300/4b0055?id=3",
+      "https://via.placeholder.com/400x300/4b0055?id=4"
     ]
   }
 ]
