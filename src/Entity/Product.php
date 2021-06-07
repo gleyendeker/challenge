@@ -31,19 +31,15 @@ class Product
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="product", orphanRemoval=true)
-     */
-    private $images;
-
-    /**
      * @ORM\OneToOne(targetEntity=Price::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $price;
 
-    public function __construct() {
-        $this->images = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="simple_array")
+     */
+    private $images = [];
 
     public function getId(): ?int
     {
@@ -74,36 +70,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getProduct() === $this) {
-                $image->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getPrice(): ?Price
     {
         return $this->price;
@@ -112,6 +78,18 @@ class Product
     public function setPrice(Price $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getImages(): ?array
+    {
+        return $this->images;
+    }
+
+    public function setImages(array $images): self
+    {
+        $this->images = $images;
 
         return $this;
     }
