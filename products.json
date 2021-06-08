@@ -3,7 +3,7 @@
     "styleNumber": "DEF|456",
     "name": "T-Shirt",
     "price": {
-      "amount": 1502,
+      "amount": 1513,
       "currency": "USD"
     },
     "images": [
@@ -20,9 +20,30 @@
     },
     "images": [
       "https://via.placeholder.com/400x300/4b0055?id=1",
-      "https://via.placeholder.com/400x300/4b0055?id=2",
       "https://via.placeholder.com/400x300/4b0055?id=3",
       "https://via.placeholder.com/400x300/4b0055?id=4"
+    ]
+  },
+  {
+    "styleNumber": "RES|333",
+    "name": "T-Shirt",
+    "price": {
+      "amount": 222,
+      "currency": "USD"
+    },
+    "images": [
+      "https://via.placeholder.com/400x300/4b0055?id=1"
+    ]
+  },
+  {
+    "styleNumber": "RES|111",
+    "name": "Trousers",
+    "price": {
+      "amount": 111,
+      "currency": "USD"
+    },
+    "images": [
+      "https://via.placeholder.com/400x300/4b0055?id=1"
     ]
   }
 ]
