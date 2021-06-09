@@ -78,8 +78,6 @@ class ProductImportTest extends KernelTestCase
         $found_key = array_search($importedProductFromDB->getStyleNumber(), array_column($productsToBeImported, 'styleNumber'));
         $importedProductFromJson = $productsToBeImported[$found_key];
 
-        dd($importedProductFromDB, $importedProductFromJson);
-
         // compare the product from the json file vs the imported product
         $this->assertSame($importedProductFromJson->styleNumber, $importedProductFromDB->getStyleNumber());
         $this->assertSame($importedProductFromJson->name, $importedProductFromDB->getName());
