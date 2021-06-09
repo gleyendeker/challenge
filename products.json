@@ -56,5 +56,29 @@
     "images": [
       "https://via.placeholder.com/400x300/4b0044?id=1"
     ]
+  },
+  {
+    "styleNumber": "HOLA|433",
+    "name": "Shoes",
+    "price": {
+      "amount": 500,
+      "currency": "USD"
+    },
+    "images": [
+      "https://via.placeholder.com/400x300/4b0032?id=1"
+    ]
+  },
+  {
+    "styleNumber": "CLARO|542",
+    "name": "Trousers",
+    "price": {
+      "amount": 1200,
+      "currency": "USD"
+    },
+    "images": [
+      "https://via.placeholder.com/400x300/4b0077?id=1",
+      "https://via.placeholder.com/400x300/4b0077?id=2",
+      "https://via.placeholder.com/400x300/4b0077?id=3"
+    ]
   }
 ]
