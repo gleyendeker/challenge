@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use App\Entity\Image;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -23,27 +24,35 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank
      */
     private $styleNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\OneToOne(targetEntity=Price::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $price;
 
     /**
      * @ORM\Column(type="simple_array")
+     * @Assert\Count(
+     *      min = 1,
+     *      minMessage = "You must specify at least one image",
+     * )
      */
     private $images = [];
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotNull
      */
     private $synchronized;
 

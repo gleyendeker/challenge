@@ -55,7 +55,6 @@ class ProductImportTest extends KernelTestCase
         //test the number of imported products
         $importedProducts = $this->em->getRepository(Product::class)->findAll();
         $this->assertCount($numberOfProductsToBeImported, $importedProducts);
-//        $this->assertSame($numberOfProductsToBeImported, sizeof($importedProducts));
     }
 
     public function testRandomProductsAttributes()
