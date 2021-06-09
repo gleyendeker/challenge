@@ -4,17 +4,25 @@
 
 unzip the file and run composer install inside the unzipped folder
 
+create prod databases and tables:
+> php bin/console doctrine:database:create
+> php bin/console doctrine:schema:create
+
+create test databases and tables:
+> php bin/console doctrine:database:create --env=test
+> php bin/console --env=test doctrine:schema:create  --env=test
+
 ## USAGE
 
 run the import command:
 
-php bin/console app:import-products
+> php bin/console app:import-products
 
 ## TESTING
 
 run tests:
 
-bin/phpunit tests/ProductImportTest.php
+> bin/phpunit tests/ProductImportTest.php
 
 ## CONSIDERATIONS
 
@@ -22,4 +30,5 @@ bin/phpunit tests/ProductImportTest.php
 - If some field is missing you will get a message and that product is not going to be imported.
 - The command output will give you information about the products imported, updated, invalid, etc.
 - The generated CSV file is going to be created in the root folder
+- The test uses the challenge_db_test, and the changes made to it are rolled back
 
