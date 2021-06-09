@@ -1,0 +1,25 @@
+# challenge
+
+## INSTALATION
+
+unzip the file and run composer install inside the unzipped folder
+
+## USAGE
+
+run the import command:
+
+php bin/console app:import-products
+
+## TESTING
+
+run tests:
+
+bin/phpunit tests/ProductImportTest.php
+
+## CONSIDERATIONS
+
+- The import script imports the products of the "products.json" file in the root folder to the challenge_db database.
+- If some field is missing you will get a message and that product is not going to be imported.
+- The command output will give you information about the products imported, updated, invalid, etc.
+- The generated CSV file is going to be created in the root folder
+
