@@ -20,6 +20,9 @@ class ProductImportCommand extends Command
 
     protected $em;
     protected $productRepository;
+    protected $output;
+    protected $newProducts;
+    protected $updatedProducts;
 
     public function __construct(EntityManagerInterface $em)
     {
@@ -27,6 +30,8 @@ class ProductImportCommand extends Command
 
         $this->em = $em;
         $this->productRepository = $this->em->getRepository(Product::class);
+        $this->updatedProducts = 0;
+        $this->newProducts = 0;
     }
 
     protected function configure()
@@ -36,6 +41,8 @@ class ProductImportCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->output = $output;
+
         $filename = __DIR__ . '/../../products.json';
         
         // using https://github.com/halaxa/json-machine to proccess objects one by one. Products are returned as arrays
@@ -48,10 +55,14 @@ class ProductImportCommand extends Command
             $foundProducts++;
         }
 
+        $this->output->writeln('found products: ' . $foundProducts);
+        $this->output->writeln('new products: ' . $this->newProducts);
+        $this->output->writeln('updated products: ' . $this->updatedProducts);
+
         // export all products to CSV
         $this->toCSV($this->productRepository->findAll(), 'products');
 
-        $output->writeln("csv synced");
+        $this->output->writeln("csv synced ok");
 
         return 1;
     }
@@ -85,6 +96,7 @@ class ProductImportCommand extends Command
         if (!$productFromDb){
             $productFromJson->setSynchronized(false);
             $this->em->persist($productFromJson);
+            $this->newProducts++;
         }
         else {
             $isDirty = $productFromDb->updateWith($productFromJson);
@@ -92,6 +104,7 @@ class ProductImportCommand extends Command
             if($isDirty){
                 $productFromDb->setSynchronized(false);
                 $this->em->persist($productFromDb);
+                $this->updatedProducts++;
             }
         }
 

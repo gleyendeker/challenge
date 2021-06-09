@@ -28,7 +28,7 @@
     "styleNumber": "RES|333",
     "name": "T-Shirt",
     "price": {
-      "amount": 222,
+      "amount": 1222,
       "currency": "USD"
     },
     "images": [
@@ -44,6 +44,17 @@
     },
     "images": [
       "https://via.placeholder.com/400x300/4b0055?id=1"
+    ]
+  },
+  {
+    "styleNumber": "ABCS|111",
+    "name": "Trousers",
+    "price": {
+      "amount": 222,
+      "currency": "USD"
+    },
+    "images": [
+      "https://via.placeholder.com/400x300/4b0044?id=1"
     ]
   }
 ]

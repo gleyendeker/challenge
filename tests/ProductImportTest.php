@@ -41,15 +41,51 @@ class ProductImportTest extends KernelTestCase
 
     public function testNumberOfImporedProducts()
     {
+        // loading in memory all products only for test purposes
+        $filename = __DIR__ . '/../products.json';
+        $numberOfProductsToBeImported = count(json_decode(file_get_contents($filename)));
+
         // check if the database is empty
-        $numberOfImportedProducts = $this->em->getRepository(Product::class)->findAll();
-        $this->assertSame(0, sizeof($numberOfImportedProducts));
+        $importedProducts = $this->em->getRepository(Product::class)->findAll();
+        $this->assertCount(0, $importedProducts);
 
         // run the command
         $this->commandTester->execute([]);
 
-        //test the number of products imported
-        $numberOfImportedProducts = $this->em->getRepository(Product::class)->findAll();
-        $this->assertSame(4, sizeof($numberOfImportedProducts));
+        //test the number of imported products
+        $importedProducts = $this->em->getRepository(Product::class)->findAll();
+        $this->assertCount($numberOfProductsToBeImported, $importedProducts);
+//        $this->assertSame($numberOfProductsToBeImported, sizeof($importedProducts));
+    }
+
+    public function testRandomProductsAttributes()
+    {
+        // run the command
+        $this->commandTester->execute([]);
+
+        //test the number of imported products
+        $importedProducts = $this->em->getRepository(Product::class)->findAll();
+
+        // select a random imported product
+        $foundProducts = count($importedProducts);
+        $importedProductFromDB = $importedProducts[rand(1,$foundProducts-1)];
+
+        // loading in memory all products only for test purposes
+        $filename = __DIR__ . '/../products.json';
+        $productsToBeImported = json_decode(file_get_contents($filename));
+
+        // pick the same randon imported product from the json file
+        $found_key = array_search($importedProductFromDB->getStyleNumber(), array_column($productsToBeImported, 'styleNumber'));
+        $importedProductFromJson = $productsToBeImported[$found_key];
+
+        dd($importedProductFromDB, $importedProductFromJson);
+
+        // compare the product from the json file vs the imported product
+        $this->assertSame($importedProductFromJson->styleNumber, $importedProductFromDB->getStyleNumber());
+        $this->assertSame($importedProductFromJson->name, $importedProductFromDB->getName());
+        $this->assertSame((float) $importedProductFromJson->price->amount, $importedProductFromDB->getPrice()->getAmount());
+        $this->assertSame($importedProductFromJson->price->currency, $importedProductFromDB->getPrice()->getCurrency());
+        $this->assertSame($importedProductFromJson->images, $importedProductFromDB->getImages());
+
     }
 }
