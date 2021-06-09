@@ -50,7 +50,8 @@ class ProductImportCommand extends Command
 
         // export all products to CSV
         $this->toCSV($this->productRepository->findAll(), 'products');
-//        $this->output->writeln("csv synced");
+
+        $output->writeln("csv synced");
 
         return 1;
     }

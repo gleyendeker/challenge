@@ -39,8 +39,8 @@
     </extensions>
     -->
 
-<!--    <extensions>-->
-<!--        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>-->
-<!--    </extensions>-->
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+    </extensions>
 
 </phpunit>
